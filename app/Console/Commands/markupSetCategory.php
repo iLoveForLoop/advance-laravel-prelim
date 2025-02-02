@@ -32,23 +32,19 @@ class markupSetCategory extends Command
         $category = $this->argument('category');
 
         $cat = Category::where('category_name', $category)->first();
-        // $pro = $cat->products;
+        $products = $cat->products;
 
 
-        $products = Product::where('category_id', $cat->id)->get();
-        $markUp = MarkupHistory::create([
+        MarkupHistory::create([
             'mark_up_rate' => $mark_up,
             'date' => now()
         ]);
 
         foreach($products as $product){
-            $partial_retail_price = $mark_up * $product->purchased_price;
-            $product->retail_price = $product->purchased_price + $partial_retail_price;
+            $product->retail_price = $product->purchased_price + $mark_up * $product->purchased_price;
             $product->save();
         }
 
-        $markUp->save();
-
-        echo "\n Mark up rate set! to the give category \n\n";
+        $this->info("\n Mark up rate set to all of the categories belongs to {$category} \n\n");
     }
 }

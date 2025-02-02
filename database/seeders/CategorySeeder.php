@@ -13,6 +13,16 @@ class CategorySeeder extends Seeder
      */
     public function run(): void
     {
-        Category::factory(10)->create();
+        Category::insert([
+            ["category_name" => "Canned goods",
+            "description" => "this is a description for canned goods"],
+
+            ["category_name" => "Drinks",
+            "description" => "this is a description for drinks"],
+
+            ["category_name" => "Clothing",
+            "description" => "this is a description for clothing"],
+        ]
+    );
     }
 }

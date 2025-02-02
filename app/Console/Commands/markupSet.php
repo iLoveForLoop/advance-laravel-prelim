@@ -30,7 +30,7 @@ class markupSet extends Command
         $mark_up = $this->argument('mark_up');
 
         $products = Product::all();
-        $markUp = MarkupHistory::create([
+        MarkupHistory::create([
             'mark_up_rate' => $mark_up,
             'date' => now()
         ]);
@@ -41,9 +41,7 @@ class markupSet extends Command
             $product->save();
         }
 
-        $markUp->save();
-
-        echo "\n Mark up rate set!";
+        echo "\n Mark up rate set! \n\n";
 
     }
 }
